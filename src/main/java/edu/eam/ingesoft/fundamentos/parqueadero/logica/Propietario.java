@@ -23,6 +23,10 @@ public class Propietario {
      */
     public Propietario(String cedula, String nombre) {
         // TODO: Implementar constructor
+        this.cedula = cedula;
+        this.nombre=nombre;
+        this.horasAcumuladas=0;
+        
     }
 
     // ==================== GETTERS ====================
@@ -31,6 +35,7 @@ public class Propietario {
      * @return La cédula del propietario
      */
     public String getCedula() {
+
         return cedula;
     }
 
@@ -55,6 +60,8 @@ public class Propietario {
      * @param horas Cantidad de horas a sumar
      */
     public void acumularHoras(int horas) {
+        
+
         // TODO: Implementar método
     }
 
@@ -66,8 +73,13 @@ public class Propietario {
      * @return La categoría del cliente ("ESTANDAR", "ESPECIAL" o "VIP")
      */
     public String obtenerCategoria() {
-        // TODO: Implementar método usando if-else múltiple
-        return null;
+        if (horasAcumuladas>=0 &&horasAcumuladas<=100)
+            return "Estandar";
+        else if (horasAcumuladas>100&&horasAcumuladas<=500) {
+            return "Especial";
+        }
+        else { return " Vip";}
+        
     }
 
     /**
@@ -79,8 +91,23 @@ public class Propietario {
      * @return El porcentaje de descuento como valor decimal
      */
     public double obtenerDescuento() {
-        // TODO: Implementar método usando switch
-        return 0;
+        String categoria =
+        obtenerCategoria();
+        switch (categoria) {
+            case "Estandar":
+                return 0.0;
+                case "Especial":
+                return 0.10;
+                case "Vip":
+                    return 0.15;
+                    default : return 0.0;
+        }
+
+                
+                
+        }
+        
+        
     }
 
     /**
@@ -88,7 +115,6 @@ public class Propietario {
      * @return true si tiene más de 500 horas acumuladas, false en caso contrario
      */
     public boolean esVIP() {
-        // TODO: Implementar método usando if simple
-        return false;
+        return this.horasAcumuladas>500;
     }
 }

@@ -34,6 +34,13 @@ public class Parqueadero {
      * @return El propietario encontrado, o null si no existe
      */
     public Propietario buscarPropietario(String cedula) {
+
+        for (Propietario zz:propietarios) {
+            if (zz.getCedula().equals(cedula)) {
+                return zz;
+            }
+        }
+
         // TODO: Implementar método usando foreach
         return null;
     }
@@ -45,6 +52,10 @@ public class Parqueadero {
      * @return El vehículo encontrado, o null si no existe
      */
     public Vehiculo buscarVehiculo(String placa) {
+        for (Vehiculo vv : vehiculos) {
+            if (vv.getPlaca().equals(placa))
+                return vv;
+        }
         // TODO: Implementar método usando foreach
         return null;
     }
@@ -59,8 +70,14 @@ public class Parqueadero {
      * @return true si se registró exitosamente, false si la cédula ya existe
      */
     public boolean registrarPropietario(String cedula, String nombre) {
+        if (buscarPropietario(cedula) != null)
+             {return false;}
+        Propietario nuevo = new Propietario(cedula, nombre);
+        Propietarios.add(nuevo);
+            
+    
         // TODO: Implementar método con validación usando if
-        return false;
+        return true;
     }
 
     /**
@@ -76,8 +93,17 @@ public class Parqueadero {
      * @return true si se registró exitosamente, false si la placa ya existe o el propietario no existe
      */
     public boolean registrarVehiculo(String placa, int modelo, String color, String cedula, String tipo) {
+        if (buscarVehiculo(placa) != null){
+            return false;
+        }
+        Propietario pp = buscarPropietario(cedula);
+        if (pp == null) {
+            return false;
+        }
+        Vehiculo nuevoVehiculo = new Vehiculo(placa, modelo, color, pp, tipo);
+        vehiculos.add(nuevoVehiculo);
         // TODO: Implementar método con validaciones usando if
-        return false;
+        return true;
     }
 
     // ==================== MÉTODO PARA ACUMULAR HORAS ====================
@@ -90,7 +116,12 @@ public class Parqueadero {
      * @return true si se acumularon las horas, false si el propietario no existe
      */
     public boolean acumularHorasCliente(String cedula, int horas) {
+        Propietario zz = buscarPropietario(cedula);
+        if(zz==null) { 
+            return false;
+        }
         // TODO: Implementar método con delegación
+        zz .acumularHoras(horas);
         return false;
     }
 
@@ -115,6 +146,7 @@ public class Parqueadero {
      * @return El costo del servicio, o -1 si falla alguna validación
      */
     public double registrarServicio(String placa, int horaIngreso, int horaSalida) {
+    
         // TODO: Implementar método con múltiples validaciones usando if
         return -1;
     }
